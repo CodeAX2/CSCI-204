@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+
 	// Sets the animation states for running and idling
 	private void SetAnimations() {
 		anim.SetBool("isRunning", running);
