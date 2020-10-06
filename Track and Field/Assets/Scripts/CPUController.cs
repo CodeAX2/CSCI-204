@@ -38,6 +38,18 @@ public class CPUController : MonoBehaviour {
 
 	void Update() {
 
+		if (GameController.GetInstance().IsCountdown() && !GameController.GetInstance().IsEnded()) {
+			anim.SetTrigger("PrepareTrigger");
+		} else {
+			anim.ResetTrigger("PrepareTrigger");
+		}
+
+		if (GameController.GetInstance().GetWinner() == GameController.Winner.CPU) {
+			anim.SetTrigger("WinTrigger");
+		} else if (GameController.GetInstance().GetWinner() == GameController.Winner.PLAYER) {
+			anim.SetTrigger("LoseTrigger");
+		}
+
 		if (GameController.GetInstance().IsEnded() || !GameController.GetInstance().IsStarted()) return;
 
 		if (transform.position.x >= GameController.GetInstance().getGoalPosition()) {
@@ -92,7 +104,7 @@ public class CPUController : MonoBehaviour {
 
 	}
 
-	
+
 	// Sets the cpu's speed and changes animations accordingly
 	private void ModifySpeed() {
 

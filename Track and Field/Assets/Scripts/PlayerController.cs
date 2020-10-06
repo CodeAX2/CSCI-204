@@ -74,6 +74,18 @@ public class PlayerController : MonoBehaviour {
 
 	void Update() {
 
+		if (GameController.GetInstance().IsCountdown() && !GameController.GetInstance().IsEnded()) {
+			anim.SetTrigger("PrepareTrigger");
+		} else {
+			anim.ResetTrigger("PrepareTrigger");
+		}
+
+		if (GameController.GetInstance().GetWinner() == GameController.Winner.PLAYER) {
+			anim.SetTrigger("WinTrigger");
+		} else if (GameController.GetInstance().GetWinner() == GameController.Winner.CPU) {
+			anim.SetTrigger("LoseTrigger");
+		}
+
 		if (GameController.GetInstance().IsEnded() || !GameController.GetInstance().IsStarted()) return;
 
 		if (transform.position.x >= GameController.GetInstance().getGoalPosition()) {
@@ -165,7 +177,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		// Speed dampening, so we don't get super slow speeds
-		if (speed <= speedDampening && targetSpeed <= speedDampening) speed = 0; 
+		if (speed <= speedDampening && targetSpeed <= speedDampening) speed = 0;
 
 		bool wasRunning = running; // Keep track of if we were running before
 								   // Update our running

@@ -10,6 +10,11 @@ public class GameController : MonoBehaviour {
 
 
 
+	// Enum to describe winner
+	public enum Winner { NONE, PLAYER, CPU };
+
+
+
 	// Refrences to the timer of the game
 	private TimerController playerTimerController;
 	private TimerController cpuTimerController;
@@ -132,6 +137,11 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	// If the countdown is occuring
+	public bool IsCountdown() {
+		return countdownStarted && !started;
+	}
+
 	// If the game has started
 	public bool IsStarted() {
 		return started;
@@ -166,6 +176,18 @@ public class GameController : MonoBehaviour {
 
 	public float getGoalPosition() {
 		return goal.transform.position.x;
+	}
+
+	public Winner GetWinner() {
+		if (!ended) return Winner.NONE;
+
+		float playerTotal = playerTimerController.getTime() + playerPenalty;
+		float cpuTotal = cpuTimerController.getTime() + cpuPenalty;
+
+		if (playerTotal <= cpuTotal) return Winner.PLAYER;
+		else return Winner.CPU;
+
+
 	}
 
 	// Get the single instance of the GameController
