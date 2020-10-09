@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 			GameController.GetInstance().PlayerFinished();
 
 			anim.SetTrigger("IdleTrigger");
-			rb.velocity = new Vector3(0, 0, 0);
+			rb.velocity = new Vector3(0, rb.velocity.y, 0);
 			running = false;
 			jumping = false;
 			return;
